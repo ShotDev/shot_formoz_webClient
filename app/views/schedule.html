@@ -2,3 +2,21 @@
 
 <a href="#/bands">bands</a>
 <a href="#/login">login</a>
+
+<table class="schedule-table" border="1">
+  <tr class="date">
+    <th colspan="42"> 8/2 </th>
+  </tr>
+  <tr class="hour-header">
+    <td ng-repeat="hour in HOURS" colspan="6"> 
+      {{ hour + "pm" }}
+    </td>
+  </tr>
+
+</table>
+
+<ul>
+  <li ng-repeat="band in bands">
+    {{ band.name }}
+  </li>
+</ul>
