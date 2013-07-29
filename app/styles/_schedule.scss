@@ -1,5 +1,55 @@
-.schedule-table {
-  width: 80%;
+$header_height: 30px;
+$height_10: 50px;
+$hour_height: $height_10 * 6;
+
+* { margin: 0; padding: 0 }
+* {
+  word-wrap: break-word;
+}
+.clear {
+  clear: both;
+}
+.schedule {
+  width: 95%;
+  max-width: 1080px;
   margin: auto;
 }
+.bands {
+  width: 100%;
+  margin: auto;
+  border: 1px solid black;
+
+  .times, .stage {
+    float: left;
+    min-height: $header_height;
+  }
+
+  .times {
+    width: 5%;
+  }
+  .stage {
+    width: 13.3%;
+    border-left: 1px solid black;
+  }
+  
+  .hour {
+    height: $hour_height;
+    border-bottom: 1px solid black;
+  }
+
+  .band {
+    background-color: red;
+  }
+}
+
+div.height-10  { height: $height_10 * 1; }
+div.height-20  { height: $height_10 * 2; }
+div.height-30  { height: $height_10 * 3; }
+div.height-40  { height: $height_10 * 4; }
+div.height-50  { height: $height_10 * 5; }
+div.height-60  { height: $height_10 * 6; }
+div.height-70  { height: $height_10 * 7; }
+div.height-80  { height: $height_10 * 8; }
+div.height-90  { height: $height_10 * 9; }
+div.height-100 { height: $height_10 * 10; }
 

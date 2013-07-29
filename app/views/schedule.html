@@ -3,20 +3,32 @@
 <a href="#/bands">bands</a>
 <a href="#/login">login</a>
 
-<table class="schedule-table" border="1">
-  <tr class="date">
-    <th colspan="42"> 8/2 </th>
-  </tr>
-  <tr class="hour-header">
-    <td ng-repeat="hour in HOURS" colspan="6"> 
-      {{ hour + "pm" }}
-    </td>
-  </tr>
+<div class="schedule">
+  <div class="header date">
+    8/2
+  </div>
 
-</table>
+  <div class="bands">
+    <div class="times">
+      <p class="hour" ng-repeat="hour in HOURS">{{ hour }}</p>
+    </div>
 
-<ul>
-  <li ng-repeat="band in bands">
-    {{ band.name }}
-  </li>
-</ul>
+    <div class="stage" ng-repeat="spanMap in schedule['8/2']">
+      <div ng-repeat="span in spanMap.timeSpans" ng-class="span.getCSS()">
+        {{ span.name }}
+      </div>
+      <!-- <div class="empty height-40"></div> -->
+      <!-- <div class="band height-30">Tizzy Bac</div> -->
+      <!-- <div class="empty height-20"></div> -->
+      <!-- <div class="band height-50">Suede</div> -->
+    </div>
+    <div class="stage"></div>
+    <div class="stage"></div>
+    <div class="stage"></div>
+    <div class="stage"></div>
+    <div class="stage"></div>
+    <div class="stage"></div>
+    <div class="clear"></div>
+  </div>
+</div>
+
