@@ -18,7 +18,6 @@ var app = angular.module('shotFormozWebClientApp', [])
       .otherwise({
         redirectTo: '/bands'
       });
-    $locationProvider.html5Mode(true);  
   });
 
 app.run(function ($rootScope, Facebook) {
