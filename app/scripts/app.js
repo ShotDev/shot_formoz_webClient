@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('shotFormozWebClientApp', [])
   .config(function ($routeProvider) {
     $routeProvider
