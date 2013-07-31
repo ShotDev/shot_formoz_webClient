@@ -68,12 +68,33 @@ describe("Stage", function(){
   });
 
   describe("#getTimeSpans", function(){
-    it("returns time spans array of bands", function(){
-      // var date = {
-      //   get
-      // }
-      var stage = new Stage();
+    function createBand (name, month, day, hour, minute) {
+      var startTime = new Date(2013, month, day, hour, minute);
+      return {
+        startTime: startTime
+        , endTime: new Date(startTime.getTime() + 40 * 60 * 1000)
+        , name: name
+      };
+    }
 
+    it("returns time spans array of bands", function(){
+      var date = {
+        getStartTime: function() {
+          return new Date(2013, 8, 2, 11);
+        }
+      }
+      , stage = new Stage();
+
+      stage.assignDate(date);
+      stage.addBand(createBand("band1", 8, 2, 11, 30));
+      stage.addBand(createBand("band2", 8, 2, 15, 20));
+
+      expect(stage.getTimeSpans()).toEqual([
+        { span: 3, type: "empty", name: "" }  
+        , { span: 4, type: "band", name: "band1" }
+        , { span: 19, type: "empty", name: "" }
+        , { span: 4, type: "band", name: "band2" }
+      ]);
     });
     
       

@@ -47,8 +47,6 @@ describe("Band", function(){
       }).toThrow();
     });
     
-    
-    
   });
   
 });
