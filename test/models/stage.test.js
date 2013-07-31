@@ -42,10 +42,23 @@ describe("Stage", function(){
 
       expect(stage.getBands()).toEqual([band]);
     });
+  });
+
+  describe("#getEarliestTime", function(){
+    it("returns the earliest date of bands", function(){
+      var stage = new Stage()
+        , date1 = new Date("2013-08-03 11:00:00")
+        , date2 = new Date("2013-08-05 11:00:00");
     
+      stage.addBand({name: "band1", startTime: date1});
+      stage.addBand({name: "band2", startTime: date2});
+
+      expect(stage.getEarliestTime()).toEqual(date1);
+    });
     
     
   });
+  
   
   
   
