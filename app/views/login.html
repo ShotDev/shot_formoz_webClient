@@ -1,16 +1,18 @@
-<html ng-app="shotFormozWebClientApp">
-<body>
+
 <div id="fb-root"></div>
-<h2>login</h2>
 
-<a href="#/bands">bands</a>
-<a href="#/schedule">schedule</a>
-<div ng-controller="LoginController">
-<button ng-click="login()">Facebook Login</button>
-{{FBStatus}}
+<div class= 'login-frame'>
+  <div class= 'login-top'>
+	<div class= 'login-title'>
+	 <h1>野台開唱<br/>2013</h1>
+	</div>
+  </div>
+  <div class= 'login-bottom'>	
+	
+	  <div class= 'login-facebook'>臉書登入製作專署攻略</div>
+	<button ng-click="login()">Facebook {{FBStatus}}</button>
+	{{facebook_id}}
+	{{facebook_token}}
+	
+  </div>
 </div>
-<script src="http://code.angularjs.org/1.0.6/angular.min.js"></script>
-<script src="../scripts/app.js"></script>
-<script src="../scripts/controllers/login.js"></script>
-
-</body>
