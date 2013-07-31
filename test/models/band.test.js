@@ -13,8 +13,8 @@ describe("Band", function(){
     beforeEach(function(){
       bandData = {
         name: "band-name"
-        , start_time: "2013-08-02 17:00:00"
-        , end_time: "2013-08-02 17:50:00"
+        , start_time: 1375434000000
+        , end_time: 1375436400000
       }  
     });
     

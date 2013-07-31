@@ -47,8 +47,8 @@ describe("Stage", function(){
   describe("#getEarliestTime", function(){
     it("returns the earliest date of bands", function(){
       var stage = new Stage()
-        , date1 = new Date("2013-08-03 11:00:00")
-        , date2 = new Date("2013-08-05 11:00:00");
+        , date1 = new Date(2013, 8, 3, 11)
+        , date2 = new Date(2013, 8, 5, 11);
     
       stage.addBand({name: "band1", startTime: date1});
       stage.addBand({name: "band2", startTime: date2});

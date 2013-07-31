@@ -48,24 +48,26 @@ describe("PerformDate", function(){
 
   describe("#getStartTime", function(){
     it("returns start time date object by all the stages of the day", function(){
-      var date = new PerformDate();
-      var stage1 = {
-        getEarliestTime: function() {
-          return new Date("2013-08-03 17:30:00");
+      var date = new PerformDate()
+        , mockEarliestTime1 = new Date(2013, 7, 2, 17, 20)
+        , mockEarliestTime2 = new Date(2013, 7, 2, 17, 50)
+        , stage1 = {
+          getEarliestTime: function() {
+            return mockEarliestTime1;
+          }
+          , assignDate: jasmine.createSpy("assignDate1")
         }
-        , assignDate: jasmine.createSpy("assignDate1")
-      };
-      var stage2 = {
-        getEarliestTime: function() {
-          return new Date("2013-08-03 18:30:00");
-        }
-        , assignDate: jasmine.createSpy("assignDate1")
-      };
+        , stage2 = {
+          getEarliestTime: function() {
+            return mockEarliestTime2;
+          }
+          , assignDate: jasmine.createSpy("assignDate1")
+        };
 
       date.addStage(stage1);
       date.addStage(stage2);
 
-      expect(date.getStartTime()).toEqual(new Date("2013-08-03 17:00:00"));
+      expect(date.getStartTime()).toEqual(new Date(2013, 7, 2, 17));
     });
     
       

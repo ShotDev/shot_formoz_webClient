@@ -21,10 +21,9 @@ PerformDate.prototype.getStartTime = function() {
 
   return new Date(
     earliestPerformTime.getFullYear()
-    + "-" + (earliestPerformTime.getMonth() + 1)
-    + "-" + earliestPerformTime.getDate()
-    + " " + earliestPerformTime.getHours()
-    + ":00:00"
+    , earliestPerformTime.getMonth() 
+    , earliestPerformTime.getDate()
+    , earliestPerformTime.getHours()
   );
 };
 
