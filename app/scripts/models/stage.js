@@ -21,6 +21,10 @@ Stage.prototype.getEarliestTime = function() {
   return earliestBand.startTime;
 };
 
+Stage.prototype.assignDate = function(date) {
+  this.date = date;
+};
+
 
 angular.module("shotFormozWebClientApp").value("Stage", Stage);
 }());

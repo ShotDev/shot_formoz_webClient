@@ -55,14 +55,29 @@ describe("Stage", function(){
 
       expect(stage.getEarliestTime()).toEqual(date1);
     });
-    
-    
   });
   
-  
-  
-  
-  
+  describe("#assignDate", function(){
+    it("set date to stage.date", function(){
+      var stage = new Stage()
+        , date = {};
+      stage.assignDate(date);
+
+      expect(stage.date).toBe(date);
+    });
+  });
+
+  describe("#getTimeSpans", function(){
+    it("returns time spans array of bands", function(){
+      // var date = {
+      //   get
+      // }
+      var stage = new Stage();
+
+    });
     
+      
+  });
+  
 });
 
