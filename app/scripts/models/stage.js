@@ -58,6 +58,8 @@ Stage.prototype.getTimeSpans = function() {
       type: "empty"
       , name: ""
       , span: getSpanBetween(band, previousBand)
+      , startTime: ""
+      , endTime: ""
     }); 
   }
   function getSpanBetween (band, previousBand) {
@@ -70,7 +72,15 @@ Stage.prototype.getTimeSpans = function() {
       type: "band"
       , name: band.name
       , span: ( band.endTime - band.startTime ) / ( 1000 * 60 * 10 )
+      , startTime: getTimeString(band.startTime)
+      , endTime: getTimeString(band.endTime)
     });
+  }
+  function getTimeString (date) {
+    var hour = date.getHours() == 0 ? "00" : date.getHours()
+      , minute = date.getMinutes() == 0 ? "00" : date.getMinutes();
+
+    return hour + ":" + minute;
   }
 };
 

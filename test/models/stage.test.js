@@ -105,10 +105,10 @@ describe("Stage", function(){
       stage.addBand(createBand("band2", 8, 2, 15, 20));
 
       expect(stage.getTimeSpans()).toEqual([
-        { span: 3, type: "empty", name: "" }  
-        , { span: 4, type: "band", name: "band1" }
-        , { span: 19, type: "empty", name: "" }
-        , { span: 4, type: "band", name: "band2" }
+        { span: 3, type: "empty", name: "", startTime: "", endTime: "" }  
+        , { span: 4, type: "band", name: "band1", startTime: "11:30", endTime: "12:10" }
+        , { span: 19, type: "empty", name: "", startTime: "", endTime: ""}
+        , { span: 4, type: "band", name: "band2", startTime: "15:20", endTime: "16:00" }
       ]);
     });
     

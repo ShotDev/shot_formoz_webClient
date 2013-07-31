@@ -69,9 +69,34 @@ describe("PerformDate", function(){
 
       expect(date.getStartTime()).toEqual(new Date(2013, 7, 2, 17));
     });
-    
+  });
+
+  describe("#getHours", function(){
+    it("returns perform hours from first perform to 0400", function(){
+      var date = new PerformDate()
+        , stage1 = {
+          getEarliestTime: function() {
+            return Date(2013, 7, 2, 17, 20);
+          }
+          , assignDate: jasmine.createSpy("assignDate1")
+        }
+        , stage2 = {
+          getEarliestTime: function() {
+            return new Date(2013, 7, 2, 17, 50);
+          }
+          , assignDate: jasmine.createSpy("assignDate1")
+        };
+
+      date.addStage(stage1);
+      date.addStage(stage2);
+
+      expect(date.getHours()).toEqual([
+        "17", "18", "19", "20", "21", "22", "23", "00", "02", "03", "04"]);
+    });
       
   });
+  
+  
   
   
 });

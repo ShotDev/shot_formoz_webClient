@@ -10,13 +10,16 @@
 
   <div class="bands">
     <div class="times">
-      <p class="hour" ng-repeat="hour in HOURS">{{ hour }}</p>
+      <!-- <p class="hour" ng-repeat="hour in HOURS">{{ hour }}</p> -->
+      <p class="hour" ng-repeat="hour in currentPerformDate.getHours()">{{ hour }}</p>
     </div>
 
     <div class="stage" ng-repeat="stage in currentPerformDate.getStages()">
       <div ng-repeat="span in stage.getTimeSpans()" class="{{ span.type }} height-{{span.span * 10}}">
-        {{span.span}}
-        {{span.type}}
+        {{span.name}}
+        {{span.startTime}}
+        -
+        {{span.endTime}}
       </div>
     </div>
 

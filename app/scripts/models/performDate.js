@@ -27,5 +27,16 @@ PerformDate.prototype.getStartTime = function() {
   );
 };
 
+PerformDate.prototype.getHours = function() {
+  var totalHours = [ "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
+      , "21", "22", "23", "00", "02", "03", "04"]
+    , startTime = this.getStartTime()
+    , startHour = startTime.getHours().toString()
+    , startIndex = _.indexOf(totalHours, startHour);
+
+  totalHours.splice(0, startIndex);
+  return totalHours;
+};
+
 angular.module("shotFormozWebClientApp").value("PerformDate", PerformDate);
 }());
