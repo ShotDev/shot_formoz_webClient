@@ -14,5 +14,19 @@ PerformDate.prototype.addStage = function(stage) {
   stage.assignDate(this);
 };
 
+PerformDate.prototype.getStartTime = function() {
+  var earliestPerformTime = _.min(this._stages, function(stage) {
+    return stage.getEarliestTime();
+  }).getEarliestTime();
+
+  return new Date(
+    earliestPerformTime.getFullYear()
+    + "-" + (earliestPerformTime.getMonth() + 1)
+    + "-" + earliestPerformTime.getDate()
+    + " " + earliestPerformTime.getHours()
+    + ":00:00"
+  );
+};
+
 angular.module("shotFormozWebClientApp").value("PerformDate", PerformDate);
 }());

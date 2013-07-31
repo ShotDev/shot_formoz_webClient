@@ -45,5 +45,31 @@ describe("PerformDate", function(){
       expect(stage.assignDate).toHaveBeenCalledWith(date);
     });
   });
+
+  describe("#getStartTime", function(){
+    it("returns start time date object by all the stages of the day", function(){
+      var date = new PerformDate();
+      var stage1 = {
+        getEarliestTime: function() {
+          return new Date("2013-08-03 17:30:00");
+        }
+        , assignDate: jasmine.createSpy("assignDate1")
+      };
+      var stage2 = {
+        getEarliestTime: function() {
+          return new Date("2013-08-03 18:30:00");
+        }
+        , assignDate: jasmine.createSpy("assignDate1")
+      };
+
+      date.addStage(stage1);
+      date.addStage(stage2);
+
+      expect(date.getStartTime()).toEqual(new Date("2013-08-03 17:00:00"));
+    });
+    
+      
+  });
+  
   
 });
