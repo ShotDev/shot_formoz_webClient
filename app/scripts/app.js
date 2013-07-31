@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('shotFormozWebClientApp', [])
-  .config(function ($routeProvider,$locationProvider) {
+  .config(function ($routeProvider,$httpProvider) {
     $routeProvider
       .when("/login", {
         templateUrl: "views/login.html"
@@ -18,6 +18,7 @@ var app = angular.module('shotFormozWebClientApp', [])
       .otherwise({
         redirectTo: '/bands'
       });
+      delete $httpProvider.defaults.headers.common['X-Requested-With'];
   });
 
 app.run(function ($rootScope, Facebook) {
@@ -29,7 +30,9 @@ app.run(function ($rootScope, Facebook) {
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
     });
-
+    FB.Event.subscribe('auth.statusChange', function(response) {
+      $rootScope.$broadcast("fb_statusChange", {'status': response.status});
+    });
   };
 
   // Load the SDK asynchronously
@@ -40,25 +43,52 @@ app.run(function ($rootScope, Facebook) {
      js.src = "//connect.facebook.net/en_US/all.js";
      ref.parentNode.insertBefore(js, ref);
    }(document));
+  $rootScope.Facebook = Facebook;
 });
 app.factory('Facebook', function($rootScope, $q) {
 
     return {
+      getLoginStatus:function () {
+        FB.getLoginStatus(function (response) {
+          $rootScope.$broadcast("fb_statusChange", {'status':response.status});
+        }, true);
+      },
       login: function() {
-
-        var resp = $q.defer();
-
-        FB.login(function(response) {
-          setTimeout(function() {
-            $rootScope.$apply(function() {
-              resp.resolve(response.authResponse);
-            });
-          },1);
-        });
-
-        $rootScope.Facebook.token = resp.promise;
-
-
+         FB.getLoginStatus(function (response) {
+          console.log("FB.getLoginStatus",response);
+            
+                switch (response.status) {
+                    case 'connected':
+                        $rootScope.Facebook.token = response.authResponse.accessToken;
+                        $rootScope.$broadcast('fb_connected', {facebook_id:response.authResponse.userID});
+                        break;
+                    case 'not_authorized' || 'unknown':
+                        // 'not_authorized' || 'unknown': doesn't seem to work
+                        FB.login(function (response) {
+                            if (response.authResponse) {
+                                $rootScope.Facebook.token = response.authResponse.accessToken;
+                                $rootScope.$broadcast('fb_connected', {
+                                    facebook_id:response.authResponse.userID,
+                                    userNotAuthorized:true
+                                });
+                            } else {
+                                $rootScope.$broadcast('fb_login_failed');
+                            }
+                        }, {scope:'read_stream, publish_stream, email'});
+                        break;
+                    default:
+                        FB.login(function (response) {
+                            if (response.authResponse) {
+                                $rootScope.Facebook.token = resp.promise;
+                                $rootScope.$broadcast('fb_connected', {facebook_id:response.authResponse.userID});
+                                $rootScope.$broadcast('fb_get_login_status');
+                            } else {
+                                $rootScope.$broadcast('fb_login_failed');
+                            }
+                        });
+                        break;
+                }
+            }, true);
       },
       logout: function() {
 
