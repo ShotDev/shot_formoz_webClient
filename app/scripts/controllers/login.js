@@ -4,10 +4,12 @@ angular.module('shotFormozWebClientApp')
   .controller('LoginController', [
       "$scope"
       , "$rootScope"
+      , "$location"
       , "$http"
       , "Facebook"
       , "user"
-    , function ($scope, $rootScope, $http, Facebook, user) {
+    , function ($scope, $rootScope, $location, $http,  Facebook, user) {
+        $scope.user = $location.path();
         $scope.FBStatus = 'try';
         $scope.login = function(){
           $scope.FBStatus = 'login';
@@ -42,9 +44,14 @@ angular.module('shotFormozWebClientApp')
         function authenticateViaFacebook(parameters) {
             //posts user FB data to a server that will check them
             delete $http.defaults.headers.common['X-Requested-With'];
-            $http.post('http://54.251.122.231/users/login', parameters).success(function (user) {
+            $http.post('/users/login', parameters).success(function (user) {
+                 console.log("user gain!",user);
+            
                 $scope.user = user;
-                $scope.updateSession();
+                //redirect to band if user do not have band
+                if(user.bands.length == 0 )
+                  $location.path('/band');
+                //redirect to schedule if user have band
             });
         }
 
