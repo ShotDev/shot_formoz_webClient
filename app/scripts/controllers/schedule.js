@@ -20,5 +20,10 @@ angular.module('shotFormozWebClientApp')
 
           $scope.performDates = Band.groupByPerformDateAndStage(bands);
           $scope.currentPerformDate = $scope.performDates[0];
+
+          window.s =  $scope.currentPerformDate;
+          console.log( $scope.currentPerformDate );
+          
+          
         });
   }]);
