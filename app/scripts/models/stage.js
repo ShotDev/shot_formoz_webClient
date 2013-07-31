@@ -10,7 +10,12 @@ Stage.prototype.getBands = function() {
 };
 
 Stage.prototype.addBand = function(band) {
+  Stage.cacheSpans = null;
   this._bands.push(band);
+
+  this._bands = _.sortBy(this._bands, function(band) {
+    return band.startTime;
+  });
 };
 
 Stage.prototype.getEarliestTime = function() {
@@ -22,10 +27,18 @@ Stage.prototype.getEarliestTime = function() {
 };
 
 Stage.prototype.assignDate = function(date) {
+  Stage.cacheSpans = null;
   this.date = date;
 };
 
+
+Stage.cacheSpans = null;
 Stage.prototype.getTimeSpans = function() {
+  if ( Stage.cacheSpans ) {
+    return Stage.cacheSpans;
+  }
+
+  
   var start = this.date.getStartTime()
     , spans = [];
 
@@ -37,7 +50,9 @@ Stage.prototype.getTimeSpans = function() {
     pushBandSpan(band);
   };
 
+  Stage.cacheSpans = spans;
   return spans;
+
   function pushEmptySpan (band, previousBand) {
     spans.push({
       type: "empty"

@@ -13,21 +13,13 @@
       <p class="hour" ng-repeat="hour in HOURS">{{ hour }}</p>
     </div>
 
-    <div class="stage" ng-repeat="spanMap in schedule['8/2']">
-      <div ng-repeat="span in spanMap.timeSpans" ng-class="span.getCSS()">
-        {{ span.name }}
+    <div class="stage" ng-repeat="stage in currentPerformDate.getStages()">
+      <div ng-repeat="span in stage.getTimeSpans()" class="{{ span.type }} height-{{span.span * 10}}">
+        {{span.span}}
+        {{span.type}}
       </div>
-      <!-- <div class="empty height-40"></div> -->
-      <!-- <div class="band height-30">Tizzy Bac</div> -->
-      <!-- <div class="empty height-20"></div> -->
-      <!-- <div class="band height-50">Suede</div> -->
     </div>
-    <div class="stage"></div>
-    <div class="stage"></div>
-    <div class="stage"></div>
-    <div class="stage"></div>
-    <div class="stage"></div>
-    <div class="stage"></div>
+
     <div class="clear"></div>
   </div>
 </div>

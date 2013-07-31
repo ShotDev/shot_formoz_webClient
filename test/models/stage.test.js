@@ -34,7 +34,9 @@ describe("Stage", function(){
     var stage, band;
     beforeEach(function(){
       stage = new Stage();  
-      band = {};
+      band = {
+        startTime: new Date(2013, 7, 2, 17)
+      };
     });
 
     it("sets band into stage.bands", function(){
@@ -42,6 +44,19 @@ describe("Stage", function(){
 
       expect(stage.getBands()).toEqual([band]);
     });
+    
+    it("sorts bands by startTime", function(){
+      var laterBand = {
+        startTime: new Date(2013, 7, 2, 20)
+      };
+
+      stage.addBand(laterBand);
+      stage.addBand(band);
+
+      expect(stage.getBands()).toEqual([ band, laterBand ]);
+    });
+    
+    
   });
 
   describe("#getEarliestTime", function(){
