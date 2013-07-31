@@ -59,7 +59,7 @@ describe("Stage", function(){
     
   });
 
-  describe("#getEarliestTime", function(){
+  describe("#getStartTime", function(){
     it("returns the earliest date of bands", function(){
       var stage = new Stage()
         , date1 = new Date(2013, 8, 3, 11)
@@ -68,7 +68,7 @@ describe("Stage", function(){
       stage.addBand({name: "band1", startTime: date1});
       stage.addBand({name: "band2", startTime: date2});
 
-      expect(stage.getEarliestTime()).toEqual(date1);
+      expect(stage.getStartTime()).toEqual(date1);
     });
   });
   

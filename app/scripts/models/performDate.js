@@ -16,8 +16,8 @@ PerformDate.prototype.addStage = function(stage) {
 
 PerformDate.prototype.getStartTime = function() {
   var earliestPerformTime = _.min(this._stages, function(stage) {
-    return stage.getEarliestTime();
-  }).getEarliestTime();
+    return stage.getStartTime();
+  }).getStartTime();
 
   return new Date(
     earliestPerformTime.getFullYear()

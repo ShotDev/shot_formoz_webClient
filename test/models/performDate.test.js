@@ -52,13 +52,13 @@ describe("PerformDate", function(){
         , mockEarliestTime1 = new Date(2013, 7, 2, 17, 20)
         , mockEarliestTime2 = new Date(2013, 7, 2, 17, 50)
         , stage1 = {
-          getEarliestTime: function() {
+          getStartTime: function() {
             return mockEarliestTime1;
           }
           , assignDate: jasmine.createSpy("assignDate1")
         }
         , stage2 = {
-          getEarliestTime: function() {
+          getStartTime: function() {
             return mockEarliestTime2;
           }
           , assignDate: jasmine.createSpy("assignDate1")
@@ -75,13 +75,13 @@ describe("PerformDate", function(){
     it("returns perform hours from first perform to 0400", function(){
       var date = new PerformDate()
         , stage1 = {
-          getEarliestTime: function() {
+          getStartTime: function() {
             return Date(2013, 7, 2, 17, 20);
           }
           , assignDate: jasmine.createSpy("assignDate1")
         }
         , stage2 = {
-          getEarliestTime: function() {
+          getStartTime: function() {
             return new Date(2013, 7, 2, 17, 50);
           }
           , assignDate: jasmine.createSpy("assignDate1")

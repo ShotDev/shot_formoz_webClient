@@ -19,7 +19,7 @@ Stage.prototype.addBand = function(band) {
   });
 };
 
-Stage.prototype.getEarliestTime = function() {
+Stage.prototype.getStartTime = function() {
   var earliestBand = _.min(this._bands, function(band) {
     return band.startTime;
   });
