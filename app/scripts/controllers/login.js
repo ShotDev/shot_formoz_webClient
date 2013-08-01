@@ -9,8 +9,6 @@ angular.module('shotFormozWebClientApp')
       , "Facebook"
       , "user"
     , function ($scope, $rootScope, $location, $http,  Facebook, user) {
-        $scope.user = $location.path();
-        $scope.FBStatus = 'try';
         $scope.login = function(){
           if(Facebook.token && user)
           {
@@ -24,14 +22,12 @@ angular.module('shotFormozWebClientApp')
         };
         $rootScope.$on("fb_statusChange", function (event, args) {
           $rootScope.fb_status = args.status;
-          $scope.FBStatus = args.status;
+          
         });
         $rootScope.$on("fb_get_login_status", function () {
-          $scope.FBStatus = 'args.status';
           Facebook.getLoginStatus();
         });
         $rootScope.$on("fb_login_failed", function () {
-          $scope.FBStatus = 'fb_login_failed';  
           console.log("fb_login_failed");
         });
         $rootScope.$on("fb_logout_succeded", function () {
@@ -43,31 +39,35 @@ angular.module('shotFormozWebClientApp')
         });
         
         $rootScope.$on("fb_connected", function (event, args) {
-          $scope.FBStatus = "fb_connected";
           var params = {};
 
           function authenticateViaFacebook(parameters) {
             //posts user FB data to a server that will check them
             delete $http.defaults.headers.common['X-Requested-With'];
-            $http.post('/users/login', parameters).success(function (user) {
+            $http.post('/users/login', parameters).success(function (theUser) {
+                console.log("theUser gain!",theUser);
+                user.id = theUser.id;
+                user.bands = theUser.bands;
                 console.log("user gain!",user);
-            
+                  
                 //redirect to band if user do not have band
                 if(user.bands.length == 0 )
                   $location.path('/band');
+                else
+                  $location.path('/schedule');
                 //redirect to schedule if user have band
             });
           }
           if (args.userNotAuthorized === true) {
-                //if the user has not authorized the app, we must write his credentials in our database
-                console.log("user is connected to facebook but has not authorized our app");
-                
-                params = {
-                          'facebook_id':args.facebook_id,
-                          'facebook_token':Facebook.token
-                        }; 
-                console.log("user",params);          
-               authenticateViaFacebook(params);
+            //if the user has not authorized the app, we must write his credentials in our database
+            console.log("user is connected to facebook but has not authorized our app");
+            
+            params = {
+                      'facebook_id':args.facebook_id,
+                      'facebook_token':Facebook.token
+                    }; 
+            console.log("user",params);          
+            authenticateViaFacebook(params);
           }
           else {
                 console.log("user is connected to facebook and has authorized our app");
