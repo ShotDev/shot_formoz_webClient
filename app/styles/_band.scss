@@ -13,10 +13,43 @@
 
     background: #de1e22;
     color:#ffffff;
+
+  
 }
-.header {
+
+@mixin band-block{
+  height: 90px;
+  min-width:320px;
+  margin:10px;
+  vertical-align: middle;
+}
+@mixin header-footer{
+  height: 70px;
+  min-width:320px;
   display: table-row;
+    /* WebKit (Chrome ,Safari) */
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
     
+    /* Firefox */
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+    
+    /* IE */
+    display: -ms-box;
+    -ms-box-pack: center;
+    -ms-box-align: center;
+    
+     /* Native CSS */
+    display: box;
+    box-pack: center;
+    box-align: center;
+}
+.band-header {
+  @include header-footer;
+  height: 60px;  
 }
 .content {
     display: table-row;  /* height is dynamic, and will expand... */
@@ -26,12 +59,9 @@
 .content-wrapper {
     height: 100%;
     overflow: auto;
+
 }
-@mixin band-block{
-  height: 100px;
-  margin:10px;
-  vertical-align: middle;
-}
+
 .band-block-non{
   @include band-block;
   background: #ffffff;
@@ -44,30 +74,67 @@
   @include band-block;
   background: #ff6666;
   color: #ffffff;
-  &:hover { background: #ff3366  ;
+  &:hover { background: #C0C0C0  ;
             color: #ffffff; }
 
 }
 .center-cropped {
-    width: 80px;  
-    height: 80px; 
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin:10px;
-    float: left;
+  width: 80px;  
+  height: 80px; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin:5px;
+  float: left;
 }
 .band-name{
-  font-size: 20px;
   height: 80px;
   line-height: 80px;
   float: left;
   vertical-align: middle;
-  margin: 10px;
-
+  font-size: 20px;
+  margin: 5px;
+  font-family: "Helvetica","STHeiti Light", "STXihei", "微軟正黑體","Microsoft JhengHei";
 }
 
 .footer {
-  display: table-row;
+   @include header-footer;
+
+}
+#next{
+  width: 45px;  
+  height: 45px; 
+  padding-left: 10px
+  
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    overflow: visible;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .2);
+    min-height: 25px;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #dddddd;
+    border: solid transparent;
+}
+::-webkit-scrollbar-track:hover {
+    background-color: #cccccc;
+}
+ 
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-button {
+    height: 0px;
+    width: 0px;
+}
