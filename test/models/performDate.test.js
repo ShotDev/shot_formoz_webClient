@@ -101,13 +101,19 @@ describe("PerformDate", function(){
       var date = new PerformDate()
         , stage1 = {
           getStartTime: function() {
-            return Date(2013, 7, 2, 17, 20);
+            return new Date(2013, 7, 2, 17, 20);
+          }
+          , getEndTime: function() {
+            return new Date(2013, 7, 2, 23, 20);
           }
           , assignDate: jasmine.createSpy("assignDate1")
         }
         , stage2 = {
           getStartTime: function() {
             return new Date(2013, 7, 2, 17, 50);
+          }
+          , getEndTime: function() {
+            return new Date(2013, 7, 3, 1, 20);
           }
           , assignDate: jasmine.createSpy("assignDate1")
         };
@@ -116,7 +122,7 @@ describe("PerformDate", function(){
       date.addStage(stage2);
 
       expect(date.getHours()).toEqual([
-        "17", "18", "19", "20", "21", "22", "23", "00", "02", "03", "04"]);
+        "17", "18", "19", "20", "21", "22", "23", "00", "01",  "02", "03"]);
     });
       
   });

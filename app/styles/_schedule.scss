@@ -3,13 +3,14 @@ $height_10: 50px;
 $hour_height: $height_10 * 6;
 
 $border_color: #6a6a6a;
-$red: red;
+$red: #de1e22;
 $purple: #9360bb;
 $blue: #529cdb;
 $tea: #a58245;
 $gray: #8595a4;
 $dark_red: #c03e3e;
 $green: #81a92a;
+$orange: #f39835;
 
 * { margin: 0; padding: 0 }
 * {
@@ -66,12 +67,38 @@ $green: #81a92a;
       height: $hour_height;
       border-bottom: 1px solid $border_color;
       border-right: 1px solid $border_color;
+      background-color: $red;
     }
 
-    .band {
-      background-color: $green;
-    }
+    .electric .band         { background-color: $purple; }
+    .wild .band { background-color: $orange; }
+    .wind .band { background-color: $blue; }
+    .mountain .band { background-color: $tea; }
+    .rock .band { background-color: $gray; }
+    .fire .band { background-color: $dark_red; }
+    .forest .band { background-color: $green; }
   }
+
+  .stages {
+    margin-top: 20px;
+    margin: auto;
+    text-align: center;
+    border-bottom: 1px solid $border_color;
+  }
+  .stage-indicator {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+  }
+
+  .stage-indicator.electric { background-color: $purple; }
+  .stage-indicator.wild { background-color: $orange; }
+  .stage-indicator.wind { background-color: $blue;}
+  .stage-indicator.mountain { background-color: $tea; }
+  .stage-indicator.rock { background-color: $gray; }
+  .stage-indicator.fire { background-color: $dark_red; }
+  .stage-indicator.forest { background-color: $green; }
 }
 
 

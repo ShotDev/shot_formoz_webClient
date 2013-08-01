@@ -17,6 +17,15 @@ angular.module('shotFormozWebClientApp')
       }
 
       var dateIndex;
+      var stageKeyMap = {
+        "電": "electric"
+        , "野": "wild"
+        , "風": "wind"
+        , "山": "mountain"
+        , "石": "rock"
+        , "火": "fire"
+        , "林": "forest"
+      };
 
       $scope.performDates = [];
       $http.get(baseUrl + "/users/" + $cookieStore.get("userId") + "/bands")
@@ -55,5 +64,9 @@ angular.module('shotFormozWebClientApp')
       $scope.hasNextDate = function() {
         return dateIndex < ($scope.performDates.length - 1);
       };
+
+      $scope.getStageKey = function(stage) {
+        return stageKeyMap[stage.name];      
+      }
       
   }]);
