@@ -1,6 +1,15 @@
-$header_height: 30px;
+$header_height: 70px;
 $height_10: 50px;
 $hour_height: $height_10 * 6;
+
+$border_color: #6a6a6a;
+$red: red;
+$purple: #9360bb;
+$blue: #529cdb;
+$tea: #a58245;
+$gray: #8595a4;
+$dark_red: #c03e3e;
+$green: #81a92a;
 
 * { margin: 0; padding: 0 }
 * {
@@ -10,12 +19,17 @@ $hour_height: $height_10 * 6;
   clear: both;
 }
 .schedule {
-  width: 95%;
+  width: 99%;
   max-width: 1080px;
   margin: auto;
 }
 
 .header {
+  background-color: $red;
+  height: $header_height;
+  color: white;
+  line-height: $header_height;
+  font-size: 20px;
   position: relative;
   text-align: center;
   > div {
@@ -24,6 +38,7 @@ $hour_height: $height_10 * 6;
   }
   .previous-date {
     left: 0;
+    // background-image: image-url("pre_day.png");
   }
   .next-date {
     right: 0;
@@ -33,7 +48,7 @@ $hour_height: $height_10 * 6;
 .bands {
   width: 100%;
   margin: auto;
-  border: 1px solid black;
+  border: 1px solid $border_color;
 
   .times, .stage {
     float: left;
@@ -45,16 +60,16 @@ $hour_height: $height_10 * 6;
   }
   .stage {
     width: 13.3%;
-    border-left: 1px solid black;
   }
   
   .hour {
     height: $hour_height;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $border_color;
+    border-right: 1px solid $border_color;
   }
 
   .band {
-    background-color: red;
+    background-color: $green;
   }
 }
 
