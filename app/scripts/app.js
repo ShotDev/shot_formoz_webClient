@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('shotFormozWebClientApp', [])
+var app = angular.module('shotFormozWebClientApp', ["ngCookies"])
   .config(function ($routeProvider,$httpProvider) {
     $routeProvider
       .when("/login", {

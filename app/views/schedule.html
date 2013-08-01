@@ -1,22 +1,25 @@
-<h2>schedule</h2>
+<div class="schedule">
+  <div class="header">
+    <div class="previous-date" ng-click="moveIndexBackward()" ng-show="hasPreviousDate()">previous</div>
+      {{ getCurrentPerformDate().name }}
+    <div class="next-date" ng-click="moveIndexForward()" ng-show="hasNextDate()">next</div>
+  </div>
 
-<a href="#/bands">bands</a>
-<a href="#/login">login</a>
+  <div class="bands">
+    <div class="times">
+      <p class="hour" ng-repeat="hour in getCurrentPerformDate().getHours()">{{ hour }}</p>
+    </div>
 
-<table class="schedule-table" border="1">
-  <tr class="date">
-    <th colspan="42"> 8/2 </th>
-  </tr>
-  <tr class="hour-header">
-    <td ng-repeat="hour in HOURS" colspan="6"> 
-      {{ hour + "pm" }}
-    </td>
-  </tr>
+    <div class="stage" ng-repeat="stage in getCurrentPerformDate().getStages()">
+      <div ng-repeat="span in stage.getTimeSpans()" class="{{ span.type }} height-{{span.span * 10}}">
+        {{span.name}}
+        {{span.startTime}}
+        -
+        {{span.endTime}}
+      </div>
+    </div>
 
-</table>
+    <div class="clear"></div>
+  </div>
+</div>
 
-<ul>
-  <li ng-repeat="band in bands">
-    {{ band.name }}
-  </li>
-</ul>
