@@ -7,7 +7,8 @@ angular.module('shotFormozWebClientApp')
       , "$http"
       , "Facebook"
       , "user"
-    , function ($scope, $rootScope, $location, $http,  Facebook, user) {
+      , "$cookieStore"
+    , function ($scope, $rootScope, $location, $http,  Facebook, user, $cookieStore) {
         $scope.user = $location.path();
         $scope.FBStatus = 'try';
         $scope.login = function(){
@@ -52,8 +53,9 @@ angular.module('shotFormozWebClientApp')
                 console.log("user gain!",user);
             
                 user.id = userResponse.id;
+                $cookieStore.put("userId", userResponse.id);
 
-                if(user.bands.length == 0 ) {
+                if(userResponse.bands.length == 0 ) {
                   //redirect to band if user do not have band
                   $location.path('/band');
                 } else {
