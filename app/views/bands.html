@@ -3,13 +3,15 @@
         <h2>點選你想看的樂團</h2>
     </div>
     <div class="content">
-        <div class="content-wrapper" >
+      <div class="content-wrapper" >
         
-             <div class ="band-block-non" ng-repeat="band in bands" ng-click="bandClick(band)">
-             	<div class="center-cropped" ng-style="{'background-image': 'url(' + band.photo_url + ')'}"/>
-             	​<span class="band-name"> {{band.name}} </span>​
-			  </div>
-             
+        <div ng-repeat="band in bands" ng-click="bandClick(band)" 
+          ng-class="{'band-block-non': !band.selected,'band-block-selected': band.selected}">
+          
+          	<div class="center-cropped" ng-style="{'background-image': 'url(' + band.photo_url + ')'}"/>
+          	​<span class="band-name"> {{band.name}} </span>​
+ 		  </div>
+          
         </div>
     </div>
     <div class="footer">

@@ -10,7 +10,7 @@ angular.module('shotFormozWebClientApp')
       , "user"
     , function ($scope, $rootScope, $location, $http,  Facebook, user){
     	$scope.init = function () {
-    	  if(user){
+    	  if(user.bands){
     	   	$http.get('/bands').success(function (allBands) {
 		   	    console.log('get bands from server',allBands);
 		   	    user.bands.forEach( function (band){
@@ -33,5 +33,8 @@ angular.module('shotFormozWebClientApp')
 				band.selected = 1;
 			console.log('band', band, band.selected?'band selected':'band not selected'); 
 		};
+		$scope.isBandSelected = function (band){
+			return band.selected;
+		}
     	
  }]);
