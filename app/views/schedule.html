@@ -4,16 +4,18 @@
 <a href="#/login">login</a>
 
 <div class="schedule">
-  <div class="header date">
-    8/2
+  <div class="header">
+    <div class="previous-date" ng-click="moveIndexBackward()" ng-show="hasPreviousDate()">previous</div>
+      {{ getCurrentPerformDate().name }}
+    <div class="next-date" ng-click="moveIndexForward()" ng-show="hasNextDate()">next</div>
   </div>
 
   <div class="bands">
     <div class="times">
-      <p class="hour" ng-repeat="hour in currentPerformDate.getHours()">{{ hour }}</p>
+      <p class="hour" ng-repeat="hour in getCurrentPerformDate().getHours()">{{ hour }}</p>
     </div>
 
-    <div class="stage" ng-repeat="stage in currentPerformDate.getStages()">
+    <div class="stage" ng-repeat="stage in getCurrentPerformDate().getStages()">
       <div ng-repeat="span in stage.getTimeSpans()" class="{{ span.type }} height-{{span.span * 10}}">
         {{span.name}}
         {{span.startTime}}

@@ -16,6 +16,8 @@ angular.module('shotFormozWebClientApp')
         return;
       }
 
+      var dateIndex;
+
       $scope.performDates = [];
       $http.get(baseUrl + "/users/" + $cookieStore.get("userId") + "/bands")
         .success(function(bandInfos) {
@@ -25,6 +27,33 @@ angular.module('shotFormozWebClientApp')
           });
 
           $scope.performDates = Band.groupByPerformDateAndStage(bands);
-          $scope.currentPerformDate = $scope.performDates[0];
+          dateIndex = 0;
         });
+
+      $scope.getCurrentPerformDate = function() {
+        return $scope.performDates[dateIndex];
+      };
+
+      $scope.moveIndexBackward = function() {
+        if ( dateIndex == 0 ) {
+          return;
+        }
+        dateIndex --;
+      };
+
+      $scope.moveIndexForward = function() {
+        if ( dateIndex == $scope.performDates.length - 1 ) {
+          return;
+        }
+        dateIndex ++;
+      };
+
+      $scope.hasPreviousDate = function() {
+        return dateIndex > 0;
+      };
+
+      $scope.hasNextDate = function() {
+        return dateIndex < ($scope.performDates.length - 1);
+      };
+      
   }]);
