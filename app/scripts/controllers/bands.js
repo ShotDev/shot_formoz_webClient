@@ -8,33 +8,78 @@ angular.module('shotFormozWebClientApp')
       , "$http"
       , "Facebook"
       , "user"
-    , function ($scope, $rootScope, $location, $http,  Facebook, user){
+      , "$cookieStore"
+    , function ($scope, $rootScope, $location, $http, Facebook, user, $cookieStore){
     	$scope.init = function () {
-    	  if(user.bands){
-    	   	$http.get('/bands').success(function (allBands) {
-		   	    console.log('get bands from server',allBands);
-		   	    user.bands.forEach( function (band){
-		   	      var index = allBands.indexOf(band);
-		   	      if(index >=0 )
-		   	      	allBands[index].selected = 1;
-		   	    })
-                $scope.bands = allBands;
-            });
-    	  }else{
-   	      	$location.path('/login');
-   	      }	
+    	  if ( ! $cookieStore.get("userId") ) {
+    	  	$location.path("/login");
+          }else {
+          	 console.log('$cookieStore.get("userId")',$cookieStore.get("userId"));
+		   	
+      	  	if(!user.bands){
+
+	    	   $http.get('/users/'+$cookieStore.get("userId")+'/bands')
+	   	      		.success(function (userBands) {
+			   	    	user.bands = userBands;
+			   	    	console.log('user.bands',user.bands);
+		   	
+			   	    	getAllBands();
+			   	    }); 
+    	  	}else{
+    	  		getAllBands();
+    	  	}
+   	      
+	      	
+   	      	
+   	  	  }
 		   
 		};
-		$scope.bandClick = function (band){
+		$scope.bandClick = function (theBand){
+			if(theBand.selected)
+			{
+				theBand.selected = false;
+				var index = user.bands.indexOf(theBand);
+				user.bands.splice(index, 1);
+			}	
+			else{
+				theBand.selected = true;
+				user.bands.push(theBand);
+			}
+				
+			console.log('band', theBand.name, theBand.selected); 
 			
-			if(band.selected)
-				band.selected = -1;
-			else
-				band.selected = 1;
-			console.log('band', band, band.selected?'band selected':'band not selected'); 
 		};
-		$scope.isBandSelected = function (band){
-			return band.selected;
+		$scope.submitBandList = function (){
+			if(user.bands.lengh==0){
+
+			}else{
+			   var bandList = new Array();
+			   user.bands.forEach(function (theBand){
+			   		bandList.push(theBand.id);
+			   }); 
+			   console.log('/users/'+user.id+'/bands'); 
+			   $http({
+		            url: '/users/'+user.id+'/bands',
+		            method: "POST",
+		            data: {band_ids:bandList}
+	        	}).success(function (data, status, headers, config) {
+	        		user.bands = data; // assign  $scope.persons here as promise is resolved here
+
+	            }).error(function (data, status, headers, config) {
+	               alert('error');
+	            });
+
+			}
+		}
+		function getAllBands(){
+			$http.get('/bands').success(function (allBands) {
+		   	   user.bands.forEach( function (band){
+		   	      var index = allBands.indexOf(band);
+		   	      if(index >=0 )
+		   	      	allBands[index].selected = true;
+		   	    })
+                $scope.bands = allBands;
+            });	
 		}
     	
  }]);

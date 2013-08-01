@@ -10,32 +10,25 @@ angular.module('shotFormozWebClientApp')
       , "$cookieStore"
 
     , function ($scope, $rootScope, $location, $http,  Facebook, user, $cookieStore) {
-        $scope.init = function (){
-          if($rootScope.Facebook.token)
-          {
-            if(!user.bands)
-              Facebook.login();
-            else
-              redirect();
+        /*$scope.init = function (){
+          if ( $cookieStore.get("userId") ) {
+            redirect();
           } 
-        };
+        };*/
 
         $scope.login = function(){
           if(Facebook.token && user)
           {
-            if(user.bands)
-              $location.path('/schedule');
-            else
-              $location.path('/bands');  
+            redirect(); 
           }
           else  
             Facebook.login();
         };
         function redirect(){
-           if(user.bands.length == 0 )
-              $location.path('/band');
-            else
-              $location.path('/schedule');
+          if(!user.bands || user.bands.length === 0 )
+            $location.path('/band');
+          else
+            $location.path('/schedule');
         }
         $rootScope.$on("fb_statusChange", function (event, args) {
           $rootScope.fb_status = args.status;
