@@ -53,7 +53,7 @@ angular.module('shotFormozWebClientApp')
 
           function authenticateViaFacebook(parameters) {
             //posts user FB data to a server that will check them
-            $http.post('/users/login', parameters).success(function (userResponse) {
+            $http.post(baseUrl + '/users/login', parameters).success(function (userResponse) {
                 user.id = userResponse.id;
                 user.bands = userResponse.bands;
                 $cookieStore.put("userId", userResponse.id);

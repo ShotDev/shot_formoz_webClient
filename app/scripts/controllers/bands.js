@@ -18,7 +18,7 @@ angular.module('shotFormozWebClientApp')
 		   	
       	  	if(!user.bands){
 
-	    	   $http.get('/users/'+$cookieStore.get("userId")+'/bands')
+	    	   $http.get( baseUrl + '/users/'+$cookieStore.get("userId")+'/bands')
 	   	      		.success(function (userBands) {
 			   	    	user.bands = userBands;
 			   	    	console.log('user.bands',user.bands);
@@ -61,7 +61,7 @@ angular.module('shotFormozWebClientApp')
   
   		   console.log('/users/'+ userId +'/bands'); 
   		   $http({
-  	            url: '/users/'+ userId +'/bands',
+                url: baseUrl + '/users/'+ userId +'/bands',
   	            method: "POST",
   	            data: {band_ids:bandList}
           	}).success(function (data, status, headers, config) {
