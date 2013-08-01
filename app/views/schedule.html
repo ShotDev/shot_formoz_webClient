@@ -1,8 +1,12 @@
 <div class="schedule">
   <div class="header">
-    <div class="previous-date" ng-click="moveIndexBackward()" ng-show="hasPreviousDate()">previous</div>
+    <div class="previous-date" ng-click="moveIndexBackward()" ng-show="hasPreviousDate()">
+      <img src="images/pre_day.png" alt="" />
+    </div>
       {{ getCurrentPerformDate().name }}
-    <div class="next-date" ng-click="moveIndexForward()" ng-show="hasNextDate()">next</div>
+    <div class="next-date" ng-click="moveIndexForward()" ng-show="hasNextDate()">
+      <img src="images/next_day.png" alt="" />
+    </div>
   </div>
 
   <div class="bands">
@@ -26,6 +30,10 @@
     <div class="stage-indicator {{getStageKey(stage)}}" ng-repeat="stage in getCurrentPerformDate().getStages()">
       {{ stage.name }}
     </div>
+  </div>
+
+  <div class="map">
+    <img src="http://out-source-jude.s3.amazonaws.com/formoz_musico/img/map0726.png" alt="" />
   </div>
 </div>
 
