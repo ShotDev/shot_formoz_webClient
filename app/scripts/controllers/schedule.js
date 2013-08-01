@@ -30,7 +30,6 @@ angular.module('shotFormozWebClientApp')
       $scope.performDates = [];
       $http.get(baseUrl + "/users/" + $cookieStore.get("userId") + "/bands")
         .success(function(bandInfos) {
-          debugger;
           var bands = [];
           _.each(bandInfos, function(bandInfo) {
             bands.push(new Band(bandInfo));

@@ -65,7 +65,6 @@ angular.module('shotFormozWebClientApp')
   	            method: "POST",
   	            data: {band_ids:bandList}
           	}).success(function (data, status, headers, config) {
-              debugger;
           		user.bands = data; // assign  $scope.persons here as promise is resolved here
               $location.path("/schedule");
             }).error(function (data, status, headers, config) {

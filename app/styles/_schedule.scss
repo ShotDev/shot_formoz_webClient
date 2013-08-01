@@ -102,6 +102,18 @@ $orange: #f39835;
   .stage-indicator.fire { background-color: $dark_red; }
   .stage-indicator.forest { background-color: $green; }
 
+  .back-to-bands {
+    margin-top: 20px;
+    color: white;
+    display: block;
+    margin: auto;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    background-color: $dark_red;
+  }
+
   .map {
     width: 100%;
     img {
