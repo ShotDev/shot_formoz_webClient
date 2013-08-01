@@ -10,6 +10,9 @@
           
           	<div class="center-cropped" ng-style="{'background-image': 'url(' + band.photo_url + ')'}"/>
           	​<span class="band-name"> {{band.name}} </span>​
+          	<div ng-class="{'check-non': !band.selected,'check-selected': band.selected}"> 
+          	<img id='check' ng-src="images/check.png"/>
+          	</div >
  		  </div>
           
         </div>
