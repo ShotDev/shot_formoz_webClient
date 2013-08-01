@@ -1,8 +1,12 @@
 <div class="schedule">
   <div class="header">
-    <div class="previous-date" ng-click="moveIndexBackward()" ng-show="hasPreviousDate()">previous</div>
+    <div class="previous-date" ng-click="moveIndexBackward()" ng-show="hasPreviousDate()">
+      <img src="images/pre_day.png" alt="" />
+    </div>
       {{ getCurrentPerformDate().name }}
-    <div class="next-date" ng-click="moveIndexForward()" ng-show="hasNextDate()">next</div>
+    <div class="next-date" ng-click="moveIndexForward()" ng-show="hasNextDate()">
+      <img src="images/next_day.png" alt="" />
+    </div>
   </div>
 
   <div class="bands">
@@ -10,7 +14,7 @@
       <p class="hour" ng-repeat="hour in getCurrentPerformDate().getHours()">{{ hour }}</p>
     </div>
 
-    <div class="stage" ng-repeat="stage in getCurrentPerformDate().getStages()">
+    <div ng-repeat="stage in getCurrentPerformDate().getStages()" class="stage {{getStageKey(stage)}}" >
       <div ng-repeat="span in stage.getTimeSpans()" class="{{ span.type }} height-{{span.span * 10}}">
         {{span.name}}
         {{span.startTime}}
@@ -20,6 +24,19 @@
     </div>
 
     <div class="clear"></div>
+  </div>
+
+  <div class="stages">
+    <div class="stage-indicator {{getStageKey(stage)}}" ng-repeat="stage in getCurrentPerformDate().getStages()">
+      {{ stage.name }}
+    </div>
+  </div>
+
+
+  <a class="back-to-bands" href="#/bands">修改攻略</a>
+
+  <div class="map">
+    <img src="http://out-source-jude.s3.amazonaws.com/formoz_musico/img/map0726.png" alt="" />
   </div>
 </div>
 

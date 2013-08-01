@@ -27,16 +27,40 @@ PerformDate.prototype.getStartTime = function() {
   );
 };
 
+PerformDate.prototype.getEndTime = function() {
+  var lastPerformTime = _.max(this._stages, function(stage) {
+    return stage.getEndTime();
+  }).getEndTime();
+
+  var lastPerformHour = new Date(
+    lastPerformTime.getFullYear()
+    , lastPerformTime.getMonth()
+    , lastPerformTime.getDate()
+    , lastPerformTime.getHours());
+
+  return new Date(lastPerformHour.getTime() + 60 * 60 * 1000);
+
+};
+
 PerformDate.prototype.getHours = function() {
   var totalHours = [ "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
-      , "21", "22", "23", "00", "02", "03", "04"]
+      , "21", "22", "23", "00", "01", "02", "03", "04"]
     , startTime = this.getStartTime()
-    , startHour = startTime.getHours().toString()
-    , startIndex = _.indexOf(totalHours, startHour);
+    , endTime = this.getEndTime()
+    , startHour = getHourString(startTime)
+    , endHour = getHourString(endTime)
+    , startIndex = _.indexOf(totalHours, startHour)
+    , endIndex = _.indexOf(totalHours, endHour) == -1 
+      ? totalHours.length - 1
+      : _.indexOf(totalHours, endHour);
 
-  totalHours.splice(0, startIndex);
-  return totalHours;
+  return totalHours.splice(startIndex, endIndex - startIndex + 2);
 };
+
+function getHourString (date) {
+  var hourString = date.getHours().toString();
+  return hourString.length == 1 ? "0" + hourString : hourString;
+}
 
 angular.module("shotFormozWebClientApp").value("PerformDate", PerformDate);
 }());

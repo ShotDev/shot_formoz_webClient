@@ -71,6 +71,22 @@ describe("Stage", function(){
       expect(stage.getStartTime()).toEqual(date1);
     });
   });
+
+  describe("#getEndTime", function(){
+    it("returns the last date of bands", function(){
+      var stage = new Stage()
+        , date1 = new Date(2013, 8, 3, 11)
+        , date2 = new Date(2013, 8, 3, 23);
+
+      stage.addBand({name: "band1", endTime: date1});
+      stage.addBand({name: "band2", endTime: date2});
+
+      expect(stage.getEndTime()).toEqual(date2);
+    });
+    
+      
+  });
+  
   
   describe("#assignDate", function(){
     it("set date to stage.date", function(){
