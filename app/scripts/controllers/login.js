@@ -48,13 +48,19 @@ angular.module('shotFormozWebClientApp')
           function authenticateViaFacebook(parameters) {
             //posts user FB data to a server that will check them
             delete $http.defaults.headers.common['X-Requested-With'];
-            $http.post('/users/login', parameters).success(function (user) {
+            $http.post('/users/login', parameters).success(function (userResponse) {
                 console.log("user gain!",user);
             
-                //redirect to band if user do not have band
-                if(user.bands.length == 0 )
+                user.id = userResponse.id;
+
+                if(user.bands.length == 0 ) {
+                  //redirect to band if user do not have band
                   $location.path('/band');
-                //redirect to schedule if user have band
+                } else {
+                  //redirect to schedule if user have band
+                  $location.path("/schedule");
+                }
+
             });
           }
           if (args.userNotAuthorized === true) {
