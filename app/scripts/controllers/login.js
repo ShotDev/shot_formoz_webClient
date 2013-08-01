@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('shotFormozWebClientApp')
   .controller('LoginController', [
       "$scope"
@@ -8,7 +7,9 @@ angular.module('shotFormozWebClientApp')
       , "$http"
       , "Facebook"
       , "user"
-    , function ($scope, $rootScope, $location, $http,  Facebook, user) {
+      , "$cookieStore"
+
+    , function ($scope, $rootScope, $location, $http,  Facebook, user, $cookieStore) {
         $scope.init = function (){
           if($rootScope.Facebook.token)
           {
@@ -18,6 +19,7 @@ angular.module('shotFormozWebClientApp')
               redirect();
           } 
         };
+
         $scope.login = function(){
           if(Facebook.token && user)
           {
@@ -58,17 +60,18 @@ angular.module('shotFormozWebClientApp')
 
           function authenticateViaFacebook(parameters) {
             //posts user FB data to a server that will check them
-            $http.post('/users/login', parameters).success(function (theUser) {
-                user.id = theUser.id;
-                user.bands = theUser.bands;
-                console.log("user gain!",user);
-                  
-                //redirect to band if user do not have band
-                if(user.bands.length == 0 )
+            $http.post('/users/login', parameters).success(function (userResponse) {
+                user.id = userResponse.id;
+                user.bands = userResponse.bands;
+                $cookieStore.put("userId", userResponse.id);
+
+                if(userResponse.bands.length == 0 ) {
+                  //redirect to band if user do not have band
                   $location.path('/band');
-                else
-                  $location.path('/schedule');
-                //redirect to schedule if user have band
+                } else {
+                  //redirect to schedule if user have band
+                  $location.path("/schedule");
+                }
             });
           }
           if (args.userNotAuthorized === true) {
