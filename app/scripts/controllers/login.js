@@ -9,6 +9,15 @@ angular.module('shotFormozWebClientApp')
       , "Facebook"
       , "user"
     , function ($scope, $rootScope, $location, $http,  Facebook, user) {
+        $scope.init = function (){
+          if($rootScope.Facebook.token)
+          {
+            if(!user.bands)
+              Facebook.login();
+            else
+              redirect();
+          } 
+        };
         $scope.login = function(){
           if(Facebook.token && user)
           {
@@ -20,6 +29,12 @@ angular.module('shotFormozWebClientApp')
           else  
             Facebook.login();
         };
+        function redirect(){
+           if(user.bands.length == 0 )
+              $location.path('/band');
+            else
+              $location.path('/schedule');
+        }
         $rootScope.$on("fb_statusChange", function (event, args) {
           $rootScope.fb_status = args.status;
           
@@ -43,9 +58,7 @@ angular.module('shotFormozWebClientApp')
 
           function authenticateViaFacebook(parameters) {
             //posts user FB data to a server that will check them
-            delete $http.defaults.headers.common['X-Requested-With'];
             $http.post('/users/login', parameters).success(function (theUser) {
-                console.log("theUser gain!",theUser);
                 user.id = theUser.id;
                 user.bands = theUser.bands;
                 console.log("user gain!",user);
