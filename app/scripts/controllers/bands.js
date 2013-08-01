@@ -50,26 +50,29 @@ angular.module('shotFormozWebClientApp')
 			
 		};
 		$scope.submitBandList = function (){
-			if(user.bands.lengh==0){
+  		if(user.bands.lengh==0){
+  
+  		}else{
+  		   var bandList = new Array();
+         var userId = $cookieStore.get("userId");
+  		   user.bands.forEach(function (theBand){
+  		   		bandList.push(theBand.id);
+  		   }); 
+  
+  		   console.log('/users/'+ userId +'/bands'); 
+  		   $http({
+  	            url: '/users/'+ userId +'/bands',
+  	            method: "POST",
+  	            data: {band_ids:bandList}
+          	}).success(function (data, status, headers, config) {
+              debugger;
+          		user.bands = data; // assign  $scope.persons here as promise is resolved here
+              $location.path("/schedule");
+            }).error(function (data, status, headers, config) {
+              $location.path("/login");
+            });
 
-			}else{
-			   var bandList = new Array();
-			   user.bands.forEach(function (theBand){
-			   		bandList.push(theBand.id);
-			   }); 
-			   console.log('/users/'+user.id+'/bands'); 
-			   $http({
-		            url: '/users/'+user.id+'/bands',
-		            method: "POST",
-		            data: {band_ids:bandList}
-	        	}).success(function (data, status, headers, config) {
-	        		user.bands = data; // assign  $scope.persons here as promise is resolved here
-
-	            }).error(function (data, status, headers, config) {
-	               alert('error');
-	            });
-
-			}
+		}
 		}
 		function getAllBands(){
 			$http.get('/bands').success(function (allBands) {
