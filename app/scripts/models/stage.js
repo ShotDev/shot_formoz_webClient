@@ -27,6 +27,14 @@ Stage.prototype.getStartTime = function() {
   return earliestBand.startTime;
 };
 
+Stage.prototype.getEndTime = function() {
+  var lastBand = _.max(this._bands, function(band) {
+    return band.endTime;
+  });
+
+  return lastBand.endTime;
+};
+
 Stage.prototype.assignDate = function(date) {
   this._spanCache = null;
   this.date = date;

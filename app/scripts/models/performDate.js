@@ -27,6 +27,21 @@ PerformDate.prototype.getStartTime = function() {
   );
 };
 
+PerformDate.prototype.getEndTime = function() {
+  var lastPerformTime = _.max(this._stages, function(stage) {
+    return stage.getEndTime();
+  }).getEndTime();
+
+  var lastPerformHour = new Date(
+    lastPerformTime.getFullYear()
+    , lastPerformTime.getMonth()
+    , lastPerformTime.getDate()
+    , lastPerformTime.getHours());
+
+  return new Date(lastPerformHour.getTime() + 60 * 60 * 1000);
+
+};
+
 PerformDate.prototype.getHours = function() {
   var totalHours = [ "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
       , "21", "22", "23", "00", "02", "03", "04"]

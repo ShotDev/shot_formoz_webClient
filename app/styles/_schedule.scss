@@ -22,56 +22,58 @@ $green: #81a92a;
   width: 99%;
   max-width: 1080px;
   margin: auto;
+  .header {
+    display: block;
+    width: 100%;
+    background-color: $red;
+    height: $header_height;
+    color: white;
+    line-height: $header_height;
+    font-size: 20px;
+    position: relative;
+    text-align: center;
+    > div {
+      position: absolute;
+      display: inline-block;
+    }
+    .previous-date {
+      left: 0;
+      // background-image: image-url("pre_day.png");
+    }
+    .next-date {
+      right: 0;
+    }
+  }
+
+  .bands {
+    width: 100%;
+    margin: auto;
+    border: 1px solid $border_color;
+
+    .times, .stage {
+      float: left;
+      min-height: $header_height;
+    }
+
+    .times {
+      width: 5%;
+    }
+    .stage {
+      width: 13.3%;
+    }
+    
+    .hour {
+      height: $hour_height;
+      border-bottom: 1px solid $border_color;
+      border-right: 1px solid $border_color;
+    }
+
+    .band {
+      background-color: $green;
+    }
+  }
 }
 
-.header {
-  background-color: $red;
-  height: $header_height;
-  color: white;
-  line-height: $header_height;
-  font-size: 20px;
-  position: relative;
-  text-align: center;
-  > div {
-    position: absolute;
-    display: inline-block;
-  }
-  .previous-date {
-    left: 0;
-    // background-image: image-url("pre_day.png");
-  }
-  .next-date {
-    right: 0;
-  }
-}
-
-.bands {
-  width: 100%;
-  margin: auto;
-  border: 1px solid $border_color;
-
-  .times, .stage {
-    float: left;
-    min-height: $header_height;
-  }
-
-  .times {
-    width: 5%;
-  }
-  .stage {
-    width: 13.3%;
-  }
-  
-  .hour {
-    height: $hour_height;
-    border-bottom: 1px solid $border_color;
-    border-right: 1px solid $border_color;
-  }
-
-  .band {
-    background-color: $green;
-  }
-}
 
 div.height-10  { height: $height_10 * 1; }
 div.height-20  { height: $height_10 * 2; }

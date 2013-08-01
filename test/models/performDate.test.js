@@ -71,6 +71,31 @@ describe("PerformDate", function(){
     });
   });
 
+  describe("#getEndTime", function(){
+    it("returns end time date object by all the stages of the day", function(){
+      var date = new PerformDate()
+        , mockLastTime1 = new Date(2013, 7, 2, 17, 20)
+        , mockLastTime2 = new Date(2013, 7, 2, 22, 50)
+        , stage1 = {
+          getEndTime: function() {
+            return mockLastTime1;
+          }
+          , assignDate: jasmine.createSpy("assignDate1")
+        }
+        , stage2 = {
+          getEndTime: function() {
+            return mockLastTime2;
+          }
+          , assignDate: jasmine.createSpy("assignDate1")
+        };
+
+      date.addStage(stage1);
+      date.addStage(stage2);
+
+      expect(date.getEndTime()).toEqual(new Date(2013, 7, 2, 23));
+    });
+  });
+
   describe("#getHours", function(){
     it("returns perform hours from first perform to 0400", function(){
       var date = new PerformDate()
